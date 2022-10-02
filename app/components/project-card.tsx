@@ -4,7 +4,6 @@ import {
   XMarkIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
-import { motion } from "framer-motion";
 
 export default function ProjectCard({
   title,
