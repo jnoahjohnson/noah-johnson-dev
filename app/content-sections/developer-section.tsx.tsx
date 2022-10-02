@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Link } from "@remix-run/react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import ProjectCard from "~/components/project-card";
 
 export default function DeveloperSection() {
@@ -10,9 +10,24 @@ export default function DeveloperSection() {
     target: developBgRef,
     offset: ["end end", "start 25%"],
   });
-  const scaleRange = useTransform(scrollYProgress, [0, 1], ["100%", "120%"]);
-  const xRange = useTransform(scrollYProgress, [0, 1], ["20%", "0%"]);
-  const yRange = useTransform(scrollYProgress, [0, 1], ["-20%", "0%"]);
+  const scaleRangeSpring = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 20,
+  });
+
+  const xRangeSpring = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 20,
+  });
+
+  const yRangeSpring = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 20,
+  });
+
+  const scaleRange = useTransform(scaleRangeSpring, [0, 1], ["100%", "120%"]);
+  const xRange = useTransform(xRangeSpring, [0, 1], ["20%", "0%"]);
+  const yRange = useTransform(yRangeSpring, [0, 1], ["-20%", "0%"]);
 
   return (
     <article className="py-16 relative z-0 overflow-hidden">
